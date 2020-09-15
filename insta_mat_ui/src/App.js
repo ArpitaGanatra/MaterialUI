@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Grid} from '@material-ui/core'
 import Header from './header'
 import Content from './content'
 import './App.css';
 
-const App = () =>{
-  return(
-      <Grid container direction="column">
+
+class App extends Component {
+  state = {  }
+  render() { 
+    return ( 
+    <Grid container direction="column">
     <Grid item>
       <Header />
     </Grid>
@@ -17,10 +20,8 @@ const App = () =>{
       </Grid>
       <Grid item xs={2} sm={2}/>
     </Grid>
-  </Grid>
-    
-    
-  )
+  </Grid> );
+  }
 }
-
+ 
 export default App;

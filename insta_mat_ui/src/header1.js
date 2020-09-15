@@ -4,21 +4,17 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { InstantSearch, SearchBox} from 'react-instantsearch-dom';
-import { createConnector } from "react-instantsearch";
-import algoliasearch from 'algoliasearch/lite';
-import logo from './logo.png';
 import SearchIcon from '@material-ui/icons/Search';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 
-const searchClient = algoliasearch('X88UHRH60L', '068bd4fe4637bcb940cf68938d2bb8ed');
+import logo from './logo.png';
 
 const useStyles = makeStyles((theme) => ({
     logoStyle:{
         height:"35px"
     },
-
     grow: {
       flexGrow: 1,
     },
@@ -77,16 +73,6 @@ const useStyles = makeStyles((theme) => ({
     
   }));
 
-const MyHits = createConnector({
-    displayName: "ConditionalQuery",
-    getProvidedProps(props, searchState, searchResults) {
-      const { query, hits } = searchResults.results ? searchResults.results : {};
-      return { query, hits };
-    }
-  })(({ query, hits }) => {
-    const hs = hits && query ? hits.map((hit) => <div>Name:{hit.Name}, Company Name:{hit.Company}</div>) : null;
-    return <div id="hits">{hs}</div>;
-  });
 
 const Header = () => {
     const classes=useStyles()
@@ -97,18 +83,18 @@ const Header = () => {
                 <img className={classes.logoStyle} src={logo} alt='logo'/>
                 <Typography className={classes.title} className={classes.grow} variant="h6" >Instagram</Typography>
                 
-  
-                <InstantSearch 
-                searchClient={searchClient}
-                indexName="Demo">
-                <header className="header">
-                <SearchBox translations = {{placeholder:'Search for Names'}}/> 
-                <MyHits/>
-                </header>
-                </InstantSearch>
-
-          
-            <div className={classes.grow} />
+                <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                    <SearchIcon />
+                </div>
+                    <InputBase placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              />
+          </div>
+          <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
           <IconButton className={classes.grow} color="inherit">
               <Badge badgeContent={17} color="secondary">
